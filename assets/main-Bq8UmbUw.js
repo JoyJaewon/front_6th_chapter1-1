@@ -36,7 +36,7 @@
       </button>
     </div>
   </div>
-`,s=({products:e=[],categories:t={},total:n=0,loading:r=!1,error:i=null,limit:s=20,sort:c=`price_asc`,search:l=``,category1:u=``,category2:d=``})=>`
+`,s=({products:e=[],categories:t={},total:n=0,loading:r=!1,limit:i=20,sort:s=`price_asc`,search:c=``,category1:l=``,category2:u=``})=>`
 <div class="min-h-screen bg-gray-50">
   <header class="bg-white shadow-sm sticky top-0 z-40">
     <div class="max-w-md mx-auto px-4 py-4">
@@ -62,7 +62,7 @@
       <!-- 검색창 -->
       <div class="mb-4">
         <div class="relative">
-          <input type="text" id="search-input" placeholder="상품명을 검색해보세요..." value="${l}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg
+          <input type="text" id="search-input" placeholder="상품명을 검색해보세요..." value="${c}" class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg
                       focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
           <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
             <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -79,22 +79,22 @@
           <div class="flex items-center gap-2">
             <label class="text-sm text-gray-600">카테고리:</label>
             <button data-breadcrumb="reset" class="text-xs hover:text-blue-800 hover:underline">전체</button>
-            ${u?`<span class="text-xs text-gray-500">></span><button data-breadcrumb="category1" class="text-xs hover:text-blue-800 hover:underline">${u}</button>`:``}
-            ${d?`<span class="text-xs text-gray-500">></span><span class="text-xs text-gray-700">${d}</span>`:``}
+            ${l?`<span class="text-xs text-gray-500">></span><button data-breadcrumb="category1" class="text-xs hover:text-blue-800 hover:underline">${l}</button>`:``}
+            ${u?`<span class="text-xs text-gray-500">></span><span class="text-xs text-gray-700">${u}</span>`:``}
           </div>
           <!-- 1depth 카테고리 -->
           <div class="flex flex-wrap gap-2">
             ${Object.keys(t).length>0&&!r?Object.keys(t).map(e=>`
-                <button data-category1="${e}" class="category1-filter-btn text-left px-3 py-2 text-sm rounded-md border transition-colors ${u===e?`bg-blue-600 text-white border-blue-600`:`bg-white border-gray-300 text-gray-700 hover:bg-gray-50`}">
+                <button data-category1="${e}" class="category1-filter-btn text-left px-3 py-2 text-sm rounded-md border transition-colors ${l===e?`bg-blue-600 text-white border-blue-600`:`bg-white border-gray-300 text-gray-700 hover:bg-gray-50`}">
                   ${e}
                 </button>
               `).join(``):`<div class="text-sm text-gray-500 italic">카테고리 로딩 중...</div>`}
           </div>
           <!-- 2depth 카테고리 -->
-          ${u&&t[u]&&Object.keys(t[u]).length>0?`
+          ${l&&t[l]&&Object.keys(t[l]).length>0?`
             <div class="flex flex-wrap gap-2">
-              ${Object.keys(t[u]).map(e=>`
-                <button data-category2="${e}" class="category2-filter-btn text-left px-2 py-1 text-xs rounded border transition-colors ${d===e?`bg-blue-500 text-white border-blue-500`:`bg-gray-50 border-gray-200 text-gray-600 hover:bg-gray-100`}">
+              ${Object.keys(t[l]).map(e=>`
+                <button data-category2="${e}" class="category2-filter-btn text-left px-2 py-1 text-xs rounded border transition-colors ${u===e?`bg-blue-500 text-white border-blue-500`:`bg-gray-50 border-gray-200 text-gray-600 hover:bg-gray-100`}">
                   ${e}
                 </button>
               `).join(``)}
@@ -108,16 +108,16 @@
             <label class="text-sm text-gray-600">개수:</label>
             <select id="limit-select"
                     class="text-sm border border-gray-300 rounded px-2 py-1 focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
-              <option value="10" ${s===10?`selected`:``}>
+              <option value="10" ${i===10?`selected`:``}>
                 10개
               </option>
-              <option value="20" ${s===20?`selected`:``}>
+              <option value="20" ${i===20?`selected`:``}>
                 20개
               </option>
-              <option value="50" ${s===50?`selected`:``}>
+              <option value="50" ${i===50?`selected`:``}>
                 50개
               </option>
-              <option value="100" ${s===100?`selected`:``}>
+              <option value="100" ${i===100?`selected`:``}>
                 100개
               </option>
             </select>
@@ -127,36 +127,15 @@
             <label class="text-sm text-gray-600">정렬:</label>
             <select id="sort-select" class="text-sm border border-gray-300 rounded px-2 py-1
                          focus:ring-1 focus:ring-blue-500 focus:border-blue-500">
-              <option value="price_asc" ${c===`price_asc`?`selected`:``}>가격 낮은순</option>
-              <option value="price_desc" ${c===`price_desc`?`selected`:``}>가격 높은순</option>
-              <option value="name_asc" ${c===`name_asc`?`selected`:``}>이름순</option>
-              <option value="name_desc" ${c===`name_desc`?`selected`:``}>이름 역순</option>
+              <option value="price_asc" ${s===`price_asc`?`selected`:``}>가격 낮은순</option>
+              <option value="price_desc" ${s===`price_desc`?`selected`:``}>가격 높은순</option>
+              <option value="name_asc" ${s===`name_asc`?`selected`:``}>이름순</option>
+              <option value="name_desc" ${s===`name_desc`?`selected`:``}>이름 역순</option>
             </select>
           </div>
         </div>
       </div>
     </div>
-    
-    <!-- 에러 상태 -->
-    ${i?`
-      <div class="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
-        <div class="flex items-center">
-          <svg class="w-5 h-5 text-red-500 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.268 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
-          </svg>
-          <div class="flex-1">
-            <h3 class="text-sm font-medium text-red-800">오류 발생</h3>
-            <p class="text-sm text-red-700 mt-1">${i}</p>
-          </div>
-        </div>
-        <div class="mt-3">
-          <button id="retry-btn" class="bg-red-600 text-white px-4 py-2 rounded-md text-sm hover:bg-red-700 transition-colors">
-            다시 시도
-          </button>
-        </div>
-      </div>
-    `:``}
-    
     <!-- 상품 목록 -->
     <div class="mb-6">
     ${r?``:`
@@ -455,60 +434,14 @@
           </div>
         </footer>
       </div>
-    `}setupEventListeners(){let e=document.querySelector(`#quantity-increase`);e&&e.addEventListener(`click`,()=>{this.quantity++,this.updateQuantityDisplay()});let t=document.querySelector(`#quantity-decrease`);t&&t.addEventListener(`click`,()=>{this.quantity>1&&(this.quantity--,this.updateQuantityDisplay())});let n=document.querySelector(`#quantity-input`);n&&n.addEventListener(`change`,e=>{let t=parseInt(e.target.value);t>=1&&(this.quantity=t),this.updateQuantityDisplay()});let r=document.querySelector(`#add-to-cart-btn`);r&&r.addEventListener(`click`,()=>{let e={id:this.product.productId,name:this.product.title,price:parseInt(this.product.lprice),image:this.product.image,brand:this.product.brand||``};f.addItem(e,this.quantity)});let i=document.querySelectorAll(`.related-product-card`);i.forEach(e=>{e.addEventListener(`click`,()=>{let t=e.dataset.productId;t&&(window.history.pushState({},``,`/product/${t}`),window.dispatchEvent(new Event(`popstate`)))})});let a=document.querySelector(`#breadcrumb-home`);a&&a.addEventListener(`click`,()=>{window.history.pushState({},``,`/`),window.dispatchEvent(new Event(`popstate`))});let o=document.querySelector(`#cart-icon-btn`);o&&o.addEventListener(`click`,()=>{f.openModal()})}updateQuantityDisplay(){let e=document.querySelector(`#quantity-input`);e&&(e.value=this.quantity)}async render(){await this.loadProduct();let e=this.generateHtml();document.querySelector(`#root`).innerHTML=e,!this.loading&&this.product&&(this.setupEventListeners(),f.updateCartIcon())}},m=class{constructor(){this.setupEventListeners=this.setupEventListeners.bind(this)}generateHtml(){return`
-      <div class="min-h-screen bg-gray-50">
-        <header class="bg-white shadow-sm sticky top-0 z-40">
-          <div class="max-w-md mx-auto px-4 py-4">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center space-x-3">
-                <h1 class="text-lg font-bold text-gray-900">404 - 페이지를 찾을 수 없습니다</h1>
-              </div>
-              <div class="flex items-center space-x-2">
-                <button id="cart-icon-btn" class="relative p-2 text-gray-700 hover:text-gray-900 transition-colors">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m2.6 8L6 2H3m4 11v6a1 1 0 001 1h1a1 1 0 001-1v-6M13 13v6a1 1 0 001 1h1a1 1 0 001-1v-6"></path>
-                  </svg>
-                </button>
-              </div>
-            </div>
-          </div>
-        </header>
-        <main class="max-w-md mx-auto px-4 py-4">
-          <div class="text-center my-4 py-20 shadow-md p-6 bg-white rounded-lg">
-            <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg" class="mx-auto mb-4">
-              <defs>
-                <linearGradient id="blueGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" style="stop-color:#4285f4;stop-opacity:1" />
-                  <stop offset="100%" style="stop-color:#1a73e8;stop-opacity:1" />
-                </linearGradient>
-                <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
-                  <feDropShadow dx="0" dy="2" stdDeviation="8" flood-color="#000000" flood-opacity="0.1"/>
-                </filter>
-              </defs>
-              
-              <!-- 404 Numbers -->
-              <text x="160" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="48" font-weight="600" fill="url(#blueGradient)" text-anchor="middle">404</text>
-              
-              <!-- Icon decoration -->
-              <circle cx="80" cy="60" r="3" fill="#e8f0fe" opacity="0.8"/>
-              <circle cx="240" cy="60" r="3" fill="#e8f0fe" opacity="0.8"/>
-              <circle cx="90" cy="45" r="2" fill="#4285f4" opacity="0.5"/>
-              <circle cx="230" cy="45" r="2" fill="#4285f4" opacity="0.5"/>
-              
-              <!-- Message -->
-              <text x="160" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="400" fill="#5f6368" text-anchor="middle">페이지를 찾을 수 없습니다</text>
-              
-              <!-- Subtle bottom accent -->
-              <rect x="130" y="130" width="60" height="2" rx="1" fill="url(#blueGradient)" opacity="0.3"/>
-            </svg>
-            
-            <button id="home-btn" class="inline-block px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">홈으로</button>
-          </div>
-        </main>
-        <footer class="bg-white shadow-sm mt-8">
-          <div class="max-w-md mx-auto py-8 text-center text-gray-500">
-            <p>© 2025 항해플러스 프론트엔드 쇼핑몰</p>
-          </div>
-        </footer>
-      </div>
-    `}setupEventListeners(){let e=document.querySelector(`#home-btn`);e&&e.addEventListener(`click`,e=>{e.preventDefault(),window.history.pushState({},``,`/`),window.dispatchEvent(new Event(`popstate`))});let t=document.querySelector(`#cart-icon-btn`);t&&t.addEventListener(`click`,()=>{f.openModal()})}async render(){let e=this.generateHtml();document.querySelector(`#root`).innerHTML=e,this.setupEventListeners(),f.updateCartIcon()}};const h=()=>r(async()=>{let{worker:e,workerOptions:t}=await import(`./browser-D8FlMt87.js`);return{worker:e,workerOptions:t}},[]).then(({worker:e,workerOptions:t})=>e.start(t));let g={products:[],categories:[],total:0,loading:!1,error:null,limit:20,sort:`price_asc`,page:1,hasMore:!0,search:``,category1:``,category2:``};function _(){let e=new URLSearchParams(window.location.search);return{search:e.get(`search`)||``,category1:decodeURIComponent(e.get(`category1`)||``),category2:decodeURIComponent(e.get(`category2`)||``),sort:e.get(`sort`)||`price_asc`,limit:parseInt(e.get(`limit`))||20}}function v(){let e=new URLSearchParams;g.search&&e.set(`search`,g.search),g.category1&&e.set(`category1`,g.category1),g.category2&&e.set(`category2`,g.category2),g.sort!==`price_asc`&&e.set(`sort`,g.sort),e.set(`limit`,g.limit.toString());let t=`${window.location.pathname}${e.toString()?`?`+e.toString():``}`;window.history.replaceState({},``,t)}let y=!1,b=null;function x(){let e=window.location.pathname,t=e.match(/^\/product\/(\d+)$/);return t?{type:`product`,productId:t[1]}:e===`/`||e===``?{type:`home`}:{type:`404`}}async function S(){let e=x();e.type===`product`?(b=new p(e.productId),await b.render()):e.type===`home`?(b=null,await C()):(b=new m,await b.render())}async function C(){let e=_();g={...g,...e},g.loading=!0,g.error=null,T();try{let e=await c({page:1,limit:g.limit,search:g.search,sort:g.sort,category1:g.category1,category2:g.category2}),t=await u();g.products=e.products,g.categories=t,g.total=e.pagination.total,g.page=1,g.hasMore=e.products.length===g.limit,g.loading=!1,g.error=null,T(),O(),f.init()}catch(e){console.error(`데이터 로드 실패:`,e),g.loading=!1,g.error=`데이터를 불러오는 중 오류가 발생했습니다.`,T(),O(),f.init()}}async function w(){await C()}function T(){document.body.querySelector(`#root`).innerHTML=s(g)}async function E(){if(!(g.loading||!g.hasMore)){g.loading=!0,g.error=null,T();try{let e=await c({page:g.page+1,limit:g.limit,sort:g.sort,search:g.search,category1:g.category1,category2:g.category2});g.products=[...g.products,...e.products],g.page+=1,g.hasMore=e.products.length===g.limit,g.loading=!1,g.error=null,T()}catch(e){console.error(`추가 상품 로드 실패:`,e),g.loading=!1,g.error=`추가 상품을 불러오는 중 오류가 발생했습니다.`,T()}}}function D(){window.innerHeight+window.scrollY>=document.body.offsetHeight-100&&E()}function O(){y||(document.body.querySelector(`#root`).addEventListener(`keydown`,async e=>{if(e.target.id===`search-input`&&e.key===`Enter`){let t=e.target.value.trim();g.search=t,g.page=1,g.loading=!0,g.error=null,v(),T();try{let e=await c({search:t,page:1,limit:g.limit,sort:g.sort,category1:g.category1,category2:g.category2});g.products=e.products,g.total=e.pagination.total,g.hasMore=e.products.length===g.limit,g.loading=!1,g.error=null,T()}catch(e){console.error(`검색 실패:`,e),g.loading=!1,g.error=`검색 중 오류가 발생했습니다.`,T()}}}),document.body.querySelector(`#root`).addEventListener(`click`,async e=>{if(e.target.id===`retry-btn`){await w();return}if(e.target.matches(`.product-image img`)||e.target.closest(`.product-image`)){let t=e.target.closest(`.product-card`);if(t){let e=t.dataset.productId;if(e){window.history.pushState({},``,`/product/${e}`),await S();return}}}if(e.target.closest(`#cart-icon-btn`)){f.openModal();return}if(e.target.classList.contains(`add-to-cart-btn`)){let t=e.target.dataset.productId,n=g.products.find(e=>e.productId.toString()===t);if(n){let e={id:n.productId,name:n.title,price:parseInt(n.lprice),image:n.image,brand:n.brand||``};f.addItem(e)}return}if(e.target.dataset.category1){let t=e.target.dataset.category1;g.category1=t,g.category2=``,g.page=1,g.loading=!0,g.error=null,v(),T();try{let e=await c({category1:t,page:1,limit:g.limit,sort:g.sort,search:g.search});g.products=e.products,g.total=e.pagination.total,g.hasMore=e.products.length===g.limit,g.loading=!1,g.error=null,T()}catch(e){console.error(`카테고리 1depth 로드 실패:`,e),g.loading=!1,g.error=`카테고리를 불러오는 중 오류가 발생했습니다.`,T()}}if(e.target.dataset.category2){let t=e.target.dataset.category2;g.category2=t,g.page=1,g.loading=!0,g.error=null,v(),T();try{let e=await c({category1:g.category1,category2:t,page:1,limit:g.limit,sort:g.sort,search:g.search});g.products=e.products,g.total=e.pagination.total,g.hasMore=e.products.length===g.limit,g.loading=!1,g.error=null,T()}catch(e){console.error(`카테고리 2depth 로드 실패:`,e),g.loading=!1,g.error=`카테고리를 불러오는 중 오류가 발생했습니다.`,T()}}if(e.target.dataset.breadcrumb===`reset`){g.category1=``,g.category2=``,g.page=1,g.loading=!0,g.error=null,v(),T();try{let e=await c({page:1,limit:g.limit,sort:g.sort,search:g.search});g.products=e.products,g.total=e.pagination.total,g.hasMore=e.products.length===g.limit,g.loading=!1,g.error=null,T()}catch(e){console.error(`브레드크럼 리셋 로드 실패:`,e),g.loading=!1,g.error=`브레드크럼을 불러오는 중 오류가 발생했습니다.`,T()}}if(e.target.dataset.breadcrumb===`category1`){g.category2=``,g.page=1,g.loading=!0,g.error=null,v(),T();try{let e=await c({category1:g.category1,page:1,limit:g.limit,sort:g.sort,search:g.search});g.products=e.products,g.total=e.pagination.total,g.hasMore=e.products.length===g.limit,g.loading=!1,g.error=null,T()}catch(e){console.error(`카테고리 1depth 로드 실패:`,e),g.loading=!1,g.error=`카테고리를 불러오는 중 오류가 발생했습니다.`,T()}}}),document.body.querySelector(`#root`).addEventListener(`change`,async e=>{if(e.target.id===`limit-select`){let t=parseInt(e.target.value);g.limit=t,g.page=1,g.loading=!0,g.error=null,v(),T();try{let e=await c({limit:t,page:1,search:g.search,sort:g.sort,category1:g.category1,category2:g.category2});g.products=e.products,g.total=e.pagination.total,g.hasMore=e.products.length===t,g.loading=!1,g.error=null,T()}catch(e){console.error(`제한 로드 실패:`,e),g.loading=!1,g.error=`제한을 불러오는 중 오류가 발생했습니다.`,T()}}if(e.target.id===`sort-select`){let t=e.target.value;g.sort=t,g.page=1,g.loading=!0,g.error=null,v(),T();try{let e=await c({sort:t,page:1,search:g.search,limit:g.limit,category1:g.category1,category2:g.category2});g.products=e.products,g.total=e.pagination.total,g.hasMore=e.products.length===g.limit,g.loading=!1,g.error=null,T()}catch(e){console.error(`정렬 로드 실패:`,e),g.loading=!1,g.error=`정렬을 불러오는 중 오류가 발생했습니다.`,T()}}}),window.addEventListener(`scroll`,D),y=!0)}async function k(){window.addEventListener(`popstate`,S),await S()}h().then(k);
+    `}setupEventListeners(){let e=document.querySelector(`#quantity-increase`);e&&e.addEventListener(`click`,()=>{this.quantity++,this.updateQuantityDisplay()});let t=document.querySelector(`#quantity-decrease`);t&&t.addEventListener(`click`,()=>{this.quantity>1&&(this.quantity--,this.updateQuantityDisplay())});let n=document.querySelector(`#quantity-input`);n&&n.addEventListener(`change`,e=>{let t=parseInt(e.target.value);t>=1&&(this.quantity=t),this.updateQuantityDisplay()});let r=document.querySelector(`#add-to-cart-btn`);r&&r.addEventListener(`click`,()=>{let e={id:this.product.productId,name:this.product.title,price:parseInt(this.product.lprice),image:this.product.image,brand:this.product.brand||``};f.addItem(e,this.quantity)});let i=document.querySelectorAll(`.related-product-card`);i.forEach(e=>{e.addEventListener(`click`,()=>{let t=e.dataset.productId;t&&(window.history.pushState({},``,`/product/${t}`),window.dispatchEvent(new Event(`popstate`)))})});let a=document.querySelector(`#breadcrumb-home`);a&&a.addEventListener(`click`,()=>{window.history.pushState({},``,`/`),window.dispatchEvent(new Event(`popstate`))});let o=document.querySelector(`#cart-icon-btn`);o&&o.addEventListener(`click`,()=>{f.openModal()})}updateQuantityDisplay(){let e=document.querySelector(`#quantity-input`);e&&(e.value=this.quantity)}async render(){await this.loadProduct();let e=this.generateHtml();document.querySelector(`#root`).innerHTML=e,!this.loading&&this.product&&(this.setupEventListeners(),f.updateCartIcon())}};const m=()=>r(async()=>{let{worker:e,workerOptions:t}=await import(`./browser-D8FlMt87.js`);return{worker:e,workerOptions:t}},[]).then(({worker:e,workerOptions:t})=>e.start(t));let h={products:[],categories:[],total:0,loading:!1,limit:20,sort:`price_asc`,page:1,hasMore:!0,search:``,category1:``,category2:``};function g(){let e=new URLSearchParams(window.location.search);return{search:e.get(`search`)||``,category1:decodeURIComponent(e.get(`category1`)||``),category2:decodeURIComponent(e.get(`category2`)||``),sort:e.get(`sort`)||`price_asc`,limit:parseInt(e.get(`limit`))||20}}function _(){let e=new URLSearchParams;h.search&&e.set(`search`,h.search),h.category1&&e.set(`category1`,h.category1),h.category2&&e.set(`category2`,h.category2),h.sort!==`price_asc`&&e.set(`sort`,h.sort),e.set(`limit`,h.limit.toString());let t=`${window.location.pathname}${e.toString()?`?`+e.toString():``}`;window.history.replaceState({},``,t)}let v=!1,y=null;function b(){let e=window.location.pathname,t=e.match(/^\/product\/(\d+)$/);return t?{type:`product`,productId:t[1]}:e===`/`||e===``?{type:`home`}:{type:`404`}}async function x(){let e=b();e.type===`product`?(y=new p(e.productId),await y.render()):e.type===`home`?(y=null,await S()):document.querySelector(`#root`).innerHTML=`
+      <main class="max-w-md mx-auto px-4 py-4">
+        <div class="text-center my-4 py-20 shadow-md p-6 bg-white rounded-lg">
+          <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg" class="mx-auto mb-4">
+            <text x="160" y="85" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="48" font-weight="600" fill="#4285f4" text-anchor="middle">404</text>
+            <text x="160" y="110" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" font-weight="400" fill="#5f6368" text-anchor="middle">페이지를 찾을 수 없습니다</text>
+          </svg>
+          <a href="/" class="inline-block px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors">홈으로</a>
+        </div>
+      </main>
+    `}async function S(){let e=g();h={...h,...e},h.loading=!0,C();let t=await c({page:1,limit:h.limit,search:h.search,sort:h.sort,category1:h.category1,category2:h.category2}),n=await u();h.products=t.products,h.categories=n,h.total=t.pagination.total,h.page=1,h.hasMore=t.products.length===h.limit,h.loading=!1,C(),E(),f.init()}function C(){document.body.querySelector(`#root`).innerHTML=s(h)}async function w(){if(!(h.loading||!h.hasMore)){h.loading=!0,C();try{let e=await c({page:h.page+1,limit:h.limit,sort:h.sort,search:h.search,category1:h.category1,category2:h.category2});h.products=[...h.products,...e.products],h.page+=1,h.hasMore=e.products.length===h.limit,h.loading=!1,C()}catch(e){console.error(`추가 상품 로드 실패:`,e),h.loading=!1,C()}}}function T(){window.innerHeight+window.scrollY>=document.body.offsetHeight-100&&w()}function E(){v||(document.body.querySelector(`#root`).addEventListener(`keydown`,async e=>{if(e.target.id===`search-input`&&e.key===`Enter`){let t=e.target.value.trim();h.search=t,h.page=1,h.loading=!0,_(),C();let n=await c({search:t,page:1,limit:h.limit,sort:h.sort,category1:h.category1,category2:h.category2});h.products=n.products,h.total=n.pagination.total,h.hasMore=n.products.length===h.limit,h.loading=!1,C()}}),document.body.querySelector(`#root`).addEventListener(`click`,async e=>{if(e.target.matches(`.product-image img`)||e.target.closest(`.product-image`)){let t=e.target.closest(`.product-card`);if(t){let e=t.dataset.productId;if(e){window.history.pushState({},``,`/product/${e}`),await x();return}}}if(e.target.closest(`#cart-icon-btn`)){f.openModal();return}if(e.target.classList.contains(`add-to-cart-btn`)){let t=e.target.dataset.productId,n=h.products.find(e=>e.productId.toString()===t);if(n){let e={id:n.productId,name:n.title,price:parseInt(n.lprice),image:n.image,brand:n.brand||``};f.addItem(e)}return}if(e.target.dataset.category1){let t=e.target.dataset.category1;h.category1=t,h.category2=``,h.page=1,h.loading=!0,_(),C();let n=await c({category1:t,page:1,limit:h.limit,sort:h.sort,search:h.search});h.products=n.products,h.total=n.pagination.total,h.hasMore=n.products.length===h.limit,h.loading=!1,C()}if(e.target.dataset.category2){let t=e.target.dataset.category2;h.category2=t,h.page=1,h.loading=!0,_(),C();let n=await c({category1:h.category1,category2:t,page:1,limit:h.limit,sort:h.sort,search:h.search});h.products=n.products,h.total=n.pagination.total,h.hasMore=n.products.length===h.limit,h.loading=!1,C()}if(e.target.dataset.breadcrumb===`reset`){h.category1=``,h.category2=``,h.page=1,h.loading=!0,_(),C();let e=await c({page:1,limit:h.limit,sort:h.sort,search:h.search});h.products=e.products,h.total=e.pagination.total,h.hasMore=e.products.length===h.limit,h.loading=!1,C()}if(e.target.dataset.breadcrumb===`category1`){h.category2=``,h.page=1,h.loading=!0,_(),C();let e=await c({category1:h.category1,page:1,limit:h.limit,sort:h.sort,search:h.search});h.products=e.products,h.total=e.pagination.total,h.hasMore=e.products.length===h.limit,h.loading=!1,C()}}),document.body.querySelector(`#root`).addEventListener(`change`,async e=>{if(e.target.id===`limit-select`){let t=parseInt(e.target.value);h.limit=t,h.page=1,h.loading=!0,_(),C();let n=await c({limit:t,page:1,search:h.search,sort:h.sort,category1:h.category1,category2:h.category2});h.products=n.products,h.total=n.pagination.total,h.hasMore=n.products.length===t,h.loading=!1,C()}if(e.target.id===`sort-select`){let t=e.target.value;h.sort=t,h.page=1,h.loading=!0,_(),C();let n=await c({sort:t,page:1,search:h.search,limit:h.limit,category1:h.category1,category2:h.category2});h.products=n.products,h.total=n.pagination.total,h.hasMore=n.products.length===h.limit,h.loading=!1,C()}}),window.addEventListener(`scroll`,T),v=!0)}async function D(){window.addEventListener(`popstate`,x),await x()}m().then(D);
